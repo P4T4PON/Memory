@@ -1,0 +1,23 @@
+.game-board {
+  margin: 50px auto;
+  background: #fff;
+  width: 550px;
+  height: 444px;
+  border: 2px solid black;
+}
+
+.game-tile:hover {
+  background-color: #f7c11a;
+}
+
+.game-score {
+  text-align: center;
+}
+
+.btn {
+  margin: 0 auto;
+}
+button {
+  margin: 0 auto;
+  width: 300px;
+}
