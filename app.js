@@ -7,7 +7,9 @@ const min = 1;
 
 var x = undefined;
 var y = undefined;
-var array = [];
+let arr = [];
+let til = [1, 2, 3, 4, 5, 6, 7, 8];
+
 let mat = Math.floor(Math.random() * (max - min) + min);
 
 document.addEventListener(
@@ -38,12 +40,17 @@ const click = function() {
   } else {
     alert('error');
   }
-  for (let i = 0; i < y / 2; i++) {
+  for (let i = 0; i < y; i++) {
+    /*
     let tl = document.createElement('div');
     tl.className = 'tile';
     tl.innerHTML = '<img src=title_' + mat + '.png >';
     tile.appendChild(tl);
     mat = Math.floor(Math.random() * (max - min) + min);
+    */
+    let a = til.splice(Math.floor(Math.random() * (til.length - 1) + 1));
+    arr.push(a);
+    arr.push(a);
   }
 };
 
