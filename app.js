@@ -2,8 +2,13 @@ const tile = document.querySelector('.game-board');
 const btn = document.querySelector('.game-start');
 let modeVal = document.getElementsByTagName('option');
 
+const max = 8;
+const min = 1;
+
 var x = undefined;
 var y = undefined;
+var array = [];
+let mat = Math.floor(Math.random() * (max - min) + min);
 
 document.addEventListener(
   'input',
@@ -23,14 +28,6 @@ document.addEventListener(
 
 //modeVal = modeVal[x].label;
 
-const max = 8;
-const min = 1;
-
-let tl = document.createElement('div');
-tl.className = 'tile';
-tl.innerHTML =
-  '<img src=title_' + Math.floor(Math.random() * (max - min) + min) + '.png >';
-
 const click = function() {
   if (modeVal[x].label === 'Easy') {
     y = 4;
@@ -41,14 +38,18 @@ const click = function() {
   } else {
     alert('error');
   }
-  for (let i = 0; i <= y; i++) {
+  for (let i = 0; i < y / 2; i++) {
+    let tl = document.createElement('div');
+    tl.className = 'tile';
+    tl.innerHTML = '<img src=title_' + mat + '.png >';
     tile.appendChild(tl);
+    mat = Math.floor(Math.random() * (max - min) + min);
   }
 };
 
 btn.addEventListener('click', click);
 
-const tiles = [
+let tiles = [
   'tile_1.png',
   'tile_2.png',
   'tile_3.png',
