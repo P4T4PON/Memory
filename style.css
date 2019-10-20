@@ -24,6 +24,14 @@ button {
   font-size: 25px;
 }
 
+.display-none {
+  display: none;
+}
+
+.display {
+  display: inline-block;
+}
+
 .etile {
   width: 50%;
   height: 50%;
@@ -34,8 +42,8 @@ button {
 }
 
 .mtile {
-  width: 33%;
-  height: 33%;
+  width: 33.33%;
+  height: 33.33%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,4 +65,9 @@ img {
   height: 100%;
   max-height: 100%;
   float: left;
+  background-color: yellowgreen;
+}
+
+img:hover {
+  background-color: darkolivegreen;
 }
