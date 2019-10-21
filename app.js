@@ -1,13 +1,19 @@
 const tile = document.querySelector('.game-board');
 const btn = document.querySelector('.game-start');
 let modeVal = document.getElementsByTagName('option');
+let option = document.getElementById('#o1');
+let score = document.querySelector('.game-score');
 
 const max = 8;
 const min = 1;
 
+let tilePairs = 0;
+let tileCount = 0;
+let moveCount = null;
+
 var a = undefined;
 var m = undefined;
-var x = undefined;
+var x = 0;
 
 let tilesChecked = [];
 
@@ -37,12 +43,15 @@ document.addEventListener(
   function(e) {
     if (e.target.value === 'easy') {
       x = 1;
+      tileCount = 4;
     } else if (e.target.value === 'medium') {
       x = 2;
+      tileCount = 8;
     } else if (e.target.value === 'hard') {
       x = 3;
+      tileCount = 16;
     } else {
-      x = undefined;
+      x = 0;
     }
   },
   false
@@ -61,7 +70,8 @@ const click = function() {
     y = 16;
     m = 'h';
   } else {
-    alert('error');
+    y = 0;
+    alert('pick one!!!');
   }
   for (let i = 0; i < y / 2; i++) {
     let a = tiles.splice(
@@ -87,25 +97,55 @@ const click = function() {
 const clicked = function(e) {
   e.target.className = 'display-none';
   e.target.previousElementSibling.className = 'display';
-  tilesChecked.push(e.target.previousElementSibling.src);
-  console.log(tilesChecked[0]);
-  console.log(tilesChecked[1]);
-  if (tilesChecked.length === 2)
-    if (tilesChecked[0] === tilesChecked[1]) {
-      deleteTiles();
+  tilesChecked.push(e.target);
+  if (tilesChecked.length === 2) {
+    moveCount++;
+    //console.log(score);
+    score.innerText = moveCount;
+    let resetTiles = function() {
+      tilesChecked[0].previousElementSibling.className = 'display-none';
+      tilesChecked[0].className = 'display';
+      tilesChecked[1].previousElementSibling.className = 'display-none';
+      tilesChecked[1].className = 'display';
+      tilesChecked = [];
+    };
+    let deleteTiles = function() {
+      tilesChecked[0].previousElementSibling.remove();
+      tilesChecked[1].previousElementSibling.remove();
+      console.log(tilesChecked);
+      tilesChecked = [];
+      tilePairs++;
+      if (tilePairs >= tileCount / 2) {
+        alert('Gratki');
+
+        //tile.innerHTML = '';
+        select('mod', 'Pick mode');
+        location.reload();
+
+        //if (tile.innerHTML === '') {
+        //y = undefined;
+        // m = undefined;
+        //}
+      }
+    };
+    if (
+      tilesChecked[0].previousElementSibling.src ===
+      tilesChecked[1].previousElementSibling.src
+    ) {
+      console.log('deleteTiles');
+      setTimeout(deleteTiles, 500);
       //e.target.previousElementSibling = null;
       //tilesChecked[0].remove();
       //tilesChecked[1].remove();
       //console.log(tilesChecked);
       //tilesChecked = [];
+    } else {
+      console.log('resetTiles');
+      setTimeout(resetTiles, 500);
+      console.log(tilesChecked);
+      //resetTiles();
     }
-};
-
-let deleteTiles = function() {
-  tilesChecked[0].remove();
-  tilesChecked[1].remove();
-  console.log(tilesChecked);
-  tilesChecked = [];
+  }
 };
 
 btn.addEventListener('click', click);
@@ -122,3 +162,14 @@ let tiles = [
   'tile_9.png',
   'tile_10.png'
 ];
+
+function select(selectId, optionValToSelect) {
+  var selectElement = document.getElementById(selectId);
+  var selectOptions = selectElement.options;
+  for (var opt, j = 0; (opt = selectOptions[j]); j++) {
+    if (opt.value == optionValToSelect) {
+      selectElement.selectedIndex = j;
+      break;
+    }
+  }
+}
